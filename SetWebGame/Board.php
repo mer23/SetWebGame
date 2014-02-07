@@ -17,4 +17,8 @@ class Board {
         $this -> number_of_slots = $number_of_slots;
         $this -> slots= array($this -> number_of_slots);
     }
+    
+    public function get_slots() {
+        return $this->slots;
+    }
 }
