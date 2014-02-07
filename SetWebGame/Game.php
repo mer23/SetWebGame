@@ -1,6 +1,7 @@
 <?php
 
 include 'Deck.php';
+include 'Board.php';
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -52,7 +53,7 @@ class Game {
     }
     
     /*Starts the game*/
-    public function init_game() {
+    public function init() {
         
         $this -> game_deck= new Deck($this -> game_difficulty);
         $this -> game_board= new Board($this -> slots_in_board);
