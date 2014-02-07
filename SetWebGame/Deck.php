@@ -13,11 +13,11 @@ class Deck {
     private $number_of_fields;
 
     public function __construct($game_difficulty) {
-        
+
         $this->number_of_fields = $game_difficulty;
-        
+
         $classname = 'Card';
-        $i = 0;       
+        $i = 0;
         foreach ($classname::$textures as $texture) {
             foreach ($classname::$shapes as $shape) {
                 foreach ($classname::$colors as $color) {
@@ -33,6 +33,27 @@ class Deck {
             }
         }
         shuffle($this->cards);
+    }
+
+    //Retrieves a non-NULL card from this deck.
+    public function draw_card() {
+
+        for ($i = 0; $i < sizeof($this->cards) - 1; $i++) {
+            if (!empty($this->cards[$i])) {
+                $non_null_card = $this->cards[$i];
+                $this->cards[$i] = NULL;
+                return $non_null_card;
+            }
+        }
+    }
+
+    public function back_to_deck($card) {
+
+        for ($i = 0; $i < sizeof($this->cards) - 1; $i++) {
+            if (empty($this->cards[$i])) {
+                $this->cards[$i] = $card;
+            }
+        }
     }
 
     public function get_cards() {
