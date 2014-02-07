@@ -21,30 +21,30 @@ class Card {
         $this->number = $number;
         $this->shape = $shape;
         $this->texture = $texture;
-        }
+    }
 
-        public function are_equal_cards($card1, $card2) {
+    public static function are_equal_cards($card1, $card2) {
         return $card1->color == $card2->color && $card1->shape == $card2->shape &&
                 $card1->texture == $card2->texture && $card1->number == $card2->number;
     }
-    
+
     public function get_color() {
         return $this->color;
     }
-    
+
     public function get_shape() {
         return $this->shape;
     }
-    
+
     public function get_number() {
         return $this->number;
     }
-    
+
     public function get_texture() {
         return $this->texture;
     }
-    
-    public function toString() {
+
+    public function to_string() {
         return $this->texture + " " + $this->color + " " + $this->shape + " " + $this->number;
     }
 
