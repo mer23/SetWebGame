@@ -3,6 +3,7 @@
 include 'Game.php';
 $game = new Game();
 //$game -> set_difficulty(3);
+$game->create_match();
 $game->init();
 
 //Used to show the proper message when comparing cards.
