@@ -32,7 +32,7 @@ class Game {
         
         $this -> game_difficulty = 4;
         $this -> slots_in_board= 9;
-        $this -> current_screen= OPTIONS_MENU_SCREEN;
+        $this -> current_screen= Game::OPTIONS_MENU_SCREEN;
     }
     
         //Updates this game's difficulty whenever the user changes its value.
@@ -57,6 +57,6 @@ class Game {
         $this -> game_deck= new Deck($this -> game_difficulty);
         $this -> game_board= new Board($this -> slots_in_board);
         
-        $this -> current_screen= MATCH_SCREEN; //Updates state.
+        $this -> current_screen= Game::MATCH_SCREEN; //Updates state.
     } 
 }
