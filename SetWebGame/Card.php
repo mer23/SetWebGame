@@ -27,13 +27,20 @@ class Card {
         return $card1->color == $card2->color && $card1->shape == $card2->shape &&
                 $card1->texture == $card2->texture && $card1->number == $card2->number;
     }
-    
+
     public static function form_a_set($first_card, $second_card, $third_card) {
-        //TODO: copy from js code.
+
+        return
+        are_consistent_fields($first_card->texture, $second_card->texture, $third_card->texture) &&
+        are_consistent_fields($first_card->color, $second_card->color, $third_card->color) &&
+        are_consistent_fields($first_card->shape, $second_card->shape, $third_card->shape) &&
+        are_consistent_fields($first_card->number, $second_card->number, $third_card->number);
     }
-    
+
     public static function are_consistent_fields($field_one, $field_two, $field_three) {
-        //TODO: copy from js code.
+
+        return (field_one == field_two && field_two == field_three) ||
+                (field_one != field_two && field_two != field_three);
     }
 
     public function get_color() {
