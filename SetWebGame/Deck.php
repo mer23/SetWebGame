@@ -35,7 +35,7 @@ class Deck {
         shuffle($this->cards);
     }
 
-    public function return_cards() {
+    public function get_cards() {
         return $this->cards;
     }
 
