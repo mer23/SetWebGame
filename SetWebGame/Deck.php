@@ -16,15 +16,16 @@ class Deck {
 
         $this->number_of_fields = $game_difficulty;
 
-        $classname = 'Card';
         $i = 0;
-        foreach ($classname::$textures as $texture) {
-            foreach ($classname::$shapes as $shape) {
-                foreach ($classname::$colors as $color) {
-                    foreach ($classname::$numbers as $number) {
-                        if (!empty($texture) && !empty($shape) && !empty($color) && !empty($number))
+        foreach (Card::get_textures() as $texture) {
+            foreach (Card::get_shapes() as $shape) {
+                foreach (Card::get_colors() as $color) {
+                    foreach (Card::get_numbers() as $number) {
+                        if (!empty($texture) && !empty($shape) && !empty($color) && !empty($number)) {
+                            //echo strval($i), '<br>';
                             $this->cards[$i] = new Card($color, $shape, $number, $texture);
-                        $i++;
+                            $i++;
+                        }
                     }
                 }
             }
