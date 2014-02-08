@@ -3,14 +3,13 @@
 class Card {
 
     //Field Color
-    public static $colors = ["yellow", "red", "blue"];
+    private static $colors = ['yellow', 'red', 'blue'];
     //Field Shape
-    public static $shapes = ["diamond", "stadium", "peanut"];
+    private static $shapes = ['diamond', 'stadium', 'peanut'];
     //Field Number
-    public static $numbers = ["1", "2", "3"];
+    private static $numbers = ['1', '2', '3'];
     //Field Texture
-    public static $textures = ["filled", "stripped", "empty"];
-    
+    private static $textures = ['filled', 'stripped', 'empty'];
     private $color;
     private $shape;
     private $number;
@@ -31,16 +30,32 @@ class Card {
     public static function form_a_set($first_card, $second_card, $third_card) {
 
         return
-        are_consistent_fields($first_card->texture, $second_card->texture, $third_card->texture) &&
-        are_consistent_fields($first_card->color, $second_card->color, $third_card->color) &&
-        are_consistent_fields($first_card->shape, $second_card->shape, $third_card->shape) &&
-        are_consistent_fields($first_card->number, $second_card->number, $third_card->number);
+                are_consistent_fields($first_card->texture, $second_card->texture, $third_card->texture) &&
+                are_consistent_fields($first_card->color, $second_card->color, $third_card->color) &&
+                are_consistent_fields($first_card->shape, $second_card->shape, $third_card->shape) &&
+                are_consistent_fields($first_card->number, $second_card->number, $third_card->number);
     }
 
     public static function are_consistent_fields($field_one, $field_two, $field_three) {
 
-        return (field_one == field_two && field_two == field_three) ||
-                (field_one != field_two && field_two != field_three);
+        return ($field_one == $field_two && $field_two == $field_three) ||
+                ($field_one != $field_two && $field_two != $field_three);
+    }
+
+    public static function get_textures() {
+        return self::$textures;
+    }
+
+    public static function get_colors() {
+        return self::$colors;
+    }
+
+    public static function get_shapes() {
+        return self::$shapes;
+    }
+
+    public static function get_numbers() {
+        return self::$numbers;
     }
 
     public function get_color() {
@@ -59,8 +74,11 @@ class Card {
         return $this->texture;
     }
 
+    // This shit doesn't work
     public function to_string() {
-        return $this->texture + " " + $this->color + " " + $this->shape + " " + $this->number;
+        $stri = $this->get_color() + "&nbsp;&nbsp;&nbsp;&nbsp;" + $this->get_texture() + "&nbsp;&nbsp;&nbsp;&nbsp;" + $this->get_shape() + "&nbsp;&nbsp;&nbsp;&nbsp;" + $this->get_number() + "<br>";
+        return $stri;
     }
 
 }
+
