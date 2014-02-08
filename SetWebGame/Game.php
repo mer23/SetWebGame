@@ -123,5 +123,28 @@ class Game {
             $this->current_screen = Game::GAME_TABLE;
         }
     }
+    
+    public function is_there_set() {
+        $classname = 'Card';
+        $arr = $this->board->get_slots();
+        
+        for ($i = 0; $i < count($arr); $i++) { //find the first card
+            if (!empty($arr[$i])) {
+                for ($j = 0; $j < count($arr); $j++) { //finds the second card
+                    if (!empty($arr[$j])) {
+                        for ($k = 0; $k < count($arr); $k++) { //find the third card
+                            if (!empty($arr[$k])) {
+                                if($classname::form_a_set($arr[$i],$arr[$j],$arr[$k])) { //checks if they make a set
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        return false;
+    }
 
 }
