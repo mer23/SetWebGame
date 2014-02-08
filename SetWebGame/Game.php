@@ -15,8 +15,8 @@ class Game {
     private $deck;
     private $board;
 
-    /* holds the current state of the game, options menu or match */
-    private $current_screen;
+    /* holds the current state of the game: options menu, list of matches or game table */
+    private $current_screen = Game::OPTIONS_MENU;
 
     const DEFAULT_DIFFICULTY = 4;
     const DEFAULT_SLOTS_IN_BOARD = 9;
@@ -33,7 +33,8 @@ class Game {
         $this->game_difficulty = Game::DEFAULT_DIFFICULTY;
         $this->slots_in_board = Game::DEFAULT_SLOTS_IN_BOARD;
 
-        $this->current_screen = Game::OPTIONS_MENU;
+        //Why isn't this working here??
+        // $this->current_screen = Game::OPTIONS_MENU;
     }
 
     //Updates this game's difficulty whenever the user changes its value.
@@ -52,9 +53,14 @@ class Game {
         }
     }
 
+    public function get_current_screen() {
+        return $this->current_screen;
+    }
+
     /* Retrieves this game's deck */
 
     public function get_deck() {
+
         if ($this->current_screen == Game::GAME_TABLE) {
             return $this->deck;
         }
@@ -63,6 +69,7 @@ class Game {
     /* Retrieves this game's board */
 
     public function get_board() {
+
         if ($this->current_screen == Game::GAME_TABLE) {
             return $this->board;
         }
@@ -85,19 +92,45 @@ class Game {
 
         $empty_slot = $this->get_deck()->draw_card();
     }
-    
+
     public function cards_to_deck() {
         
     }
-    
-    public function pause(){
-     /* This has to retreat all cards from board and put them back in deck.
-      * Then, the deck has to be shuffled. When unpaused, new cards will be dealt 
-      * at the board so the game can continue.
-      * Only one pause per user per match shall be allowed.
-      */ 
+
+    public function is_there_set() {
+
+        $arr = $this->board->get_slots();
+        $counter = 0;
+
+        for ($i = 0; $i < count($arr); $i++) { //find the first card
+            echo'first for<br>';
+            if (!empty($arr[$i])) {
+                for ($j = $i + 1; $j < count($arr); $j++) { //finds the second card
+                    if (!empty($arr[$j])) {
+                        for ($k = $j + 1; $k < count($arr); $k++) { //find the third card
+                            if (!empty($arr[$k])) {
+                                if (Card::form_a_set($arr[$i], $arr[$j], $arr[$k]) && false) { //checks if they make a set
+                                    return true;
+                                }
+                                $counter++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return $counter;
     }
-    
+
+    public function pause() {
+        /* This has to retreat all cards from board and put them back in deck.
+         * Then, the deck has to be shuffled. When unpaused, new cards will be dealt 
+         * at the board so the game can continue.
+         * Only one pause per user per match shall be allowed.
+         */
+    }
+
     public function unpause() {
         
     }
@@ -114,37 +147,15 @@ class Game {
     /* Starts the game */
 
     public function init() {
-        if ($this->current_screen == Game::LIST_OF_MATCHES) {
 
+        if ($this->current_screen == Game::LIST_OF_MATCHES) {
             $this->deck = new Deck($this->game_difficulty);
             $this->board = new Board($this->slots_in_board);
-            $this->fill_board();
 
             $this->current_screen = Game::GAME_TABLE;
+
+            $this->fill_board();
         }
-    }
-    
-    public function is_there_set() {
-        $classname = 'Card';
-        $arr = $this->board->get_slots();
-        
-        for ($i = 0; $i < count($arr); $i++) { //find the first card
-            if (!empty($arr[$i])) {
-                for ($j = 0; $j < count($arr); $j++) { //finds the second card
-                    if (!empty($arr[$j])) {
-                        for ($k = 0; $k < count($arr); $k++) { //find the third card
-                            if (!empty($arr[$k])) {
-                                if($classname::form_a_set($arr[$i],$arr[$j],$arr[$k])) { //checks if they make a set
-                                    return true;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        
-        return false;
     }
 
 }
