@@ -33,16 +33,17 @@ class Deck {
                 break;
             }
         }
+
         shuffle($this->cards);
     }
 
     //Retrieves a non-NULL card from this deck.
     public function draw_card() {
 
-        for ($i = 0; $i < sizeof($this->cards) - 1; $i++) {
-            if (!empty($this->cards[$i])) {
-                $non_null_card = $this->cards[$i];
-                $this->cards[$i] = NULL;
+        foreach ($this->cards as $index => $card) {
+            if (!empty($card)) {
+                $non_null_card = $card;
+                unset($this->cards[$index]);
                 return $non_null_card;
             }
         }
